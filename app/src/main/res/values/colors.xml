@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Màu cơ bản -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Màu sắc chủ đạo và cho chữ viết (nguyên bản của bạn) -->
+    <color name="accent_orange">#FF9800</color>
+    <color name="accent_light">#FFF3E0</color>
+    <color name="text_primary">#212121</color>       <!-- Giữ nguyên màu chữ tối -->
+    <color name="text_secondary">#757575</color>     <!-- Giữ nguyên màu chữ tối -->
+
+    <!-- CÁC MÀU NỀN CHO GIAO DIỆN SÁNG -->
+    <color name="background_primary">#FFFFFF</color>   <!-- Nền chính màu TRẮNG -->
+    <color name="background_secondary">#F1F1F1</color>  <!-- Nền phụ màu xám rất nhạt -->
+    <color name="background_accent">#FFF3E0</color>     <!-- Nền nút Play màu cam nhạt (accent_light) -->
 </resources>

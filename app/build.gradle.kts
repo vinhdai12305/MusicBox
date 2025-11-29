@@ -1,4 +1,5 @@
 plugins {
+    id("com.google.gms.google-services") version "4.4.4" apply false
     alias(libs.plugins.android.application)
 }
 
@@ -32,7 +33,18 @@ android {
 }
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
 
+    // Kotlin Extensions cho Firebase Auth & Firestore
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
+    // Thư viện Coroutines Play Services (quan trọng để dùng .await() gọn gàng)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
+    // Lifecycle (Nếu bạn dùng ViewModel, rất nên dùng)
+    // implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    // ...
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
