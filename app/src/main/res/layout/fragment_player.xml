@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp">
+
+
+        <!--================ HEADER =================-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_back"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:id="@+id/btnMore"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_more"/>
+        </LinearLayout>
+
+        <!--================ COVER IMAGE =================-->
+        <ImageView
+            android:id="@+id/imgCover"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            android:src="@drawable/img"/>
+
+        <!--================ TITLE =================-->
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:text="Phép màu"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="#191919"/>
+
+        <TextView
+            android:id="@+id/txtArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="feat. Minh Tốc &amp; Lam"
+            android:textSize="17sp"
+            android:textColor="#7A7A7A"
+            android:layout_marginTop="8dp"/>
+
+        <!--================ SEEK BAR =================-->
+        <SeekBar
+            android:id="@+id/seekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"/>
+
+        <!-- Time -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/txtCurrentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0:25"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:id="@+id/txtTotalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3:15"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <!--================ MAIN CONTROLS =================-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:id="@+id/btnShuffle"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_shuffle"/>
+
+            <Space
+                android:layout_width="25dp"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:id="@+id/btnPrev"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_skip_previous"/>
+
+
+            <ImageView
+                android:id="@+id/btnPlay"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginHorizontal="12dp"
+                android:src="@drawable/ic_play"/>
+
+            <ImageView
+                android:id="@+id/btnNext"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@drawable/ic_skip_next"/>
+
+            <Space
+                android:layout_width="25dp"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:id="@+id/btnRepeat2"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_repeat_2"/>
+
+
+        </LinearLayout>
+
+        <!--================ SECONDARY CONTROLS =================-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnShuffle2"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_repeat"/>
+
+            <Space
+                android:layout_width="60dp"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:id="@+id/btnTimer"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_time"/>
+
+            <Space
+                android:layout_width="60dp"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:id="@+id/btnRepeat"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_shuffle_2"/>
+
+            <Space
+                android:layout_width="60dp"
+                android:layout_height="1dp"/>
+
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_more_vert"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/lineLyricsDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#FFEAEAEA"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone" />   <!-- ẨN LÚC BAN ĐẦU -->
+
+
+        <!--================ LYRICS EXPAND =================-->
+        <LinearLayout
+            android:id="@+id/layoutExpandLyrics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="60dp">
+
+
+            <ImageView
+                android:id="@+id/btnExpandLyrics"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_arrow_up"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lyrics"
+                android:textStyle="bold"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+        <!--================ LYRICS BOX =================-->
+        <include
+            android:id="@+id/includeLyrics"
+            layout="@layout/layout_lyrics"/>
+
+    </LinearLayout>
+</ScrollView>
