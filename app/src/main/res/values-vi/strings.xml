@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hộp Nhạc</string>
+    <string name="settings">Cài Đặt</string>
+    <string name="backup">Sao Lưu</string>
+    <string name="notification">Thông Báo</string>
+    <string name="language">Ngôn Ngữ</string>
+    <string name="dark_mode">Giao Diện Tối</string>
+    <string name="share_app">Chia Sẻ</string>
+    <string name="change_log">Nhật Ký Thay Đổi</string>
+    <string name="privacy_policy">Chính Sách Riêng Tư</string>
+    <string name="faq">Hỏi Đáp</string>
+    <string name="quit">Thoát</string>
+    <string name="new_music">Nhạc Mới</string>
+    <string name="playlist_updates">Cập nhật Playlist</string>
+</resources>
