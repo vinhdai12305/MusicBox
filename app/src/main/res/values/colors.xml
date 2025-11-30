@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="music_orange">#FF6D00</color> <color name="music_black_bg">#0F0F0F</color> <color name="music_text_grey">#B0B0B0</color>
 </resources>
