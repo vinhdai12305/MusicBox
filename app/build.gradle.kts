@@ -49,3 +49,12 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 }
+
+// BƯỚC KHẮC PHỤC LỖI TRÙNG LẶP:
+// Buộc tất cả các thư viện phụ thuộc (transitive dependencies) sử dụng một phiên bản duy nhất
+configurations.all {
+    resolutionStrategy {
+        // Thay 2.1.4 bằng phiên bản ConstraintLayout mới nhất hoặc phiên bản bạn muốn dùng
+        force("androidx.constraintlayout:constraintlayout:2.1.4")
+    }
+}
