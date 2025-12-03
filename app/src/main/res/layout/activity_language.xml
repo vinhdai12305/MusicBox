@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@color/app_background"
     tools:context=".LanguageActivity">
-
     <ImageView
         android:id="@+id/btnBack"
         android:layout_width="30dp"
@@ -14,26 +13,24 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:src="@drawable/ic_back"
-        app:tint="#000000"
+        app:tint="@color/text_primary"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/tvHeaderTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Language"
+        android:text="@string/language"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@color/text_primary"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toEndOf="@id/btnBack"
         app:layout_constraintTop_toTopOf="@id/btnBack"
         app:layout_constraintBottom_toBottomOf="@id/btnBack"/>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -52,7 +49,7 @@
                 android:text="Suggested"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/text_primary"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
@@ -72,14 +69,13 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#E0E0E0"
+                android:background="@color/divider_color"
                 android:layout_marginVertical="16dp"/>
-
             <TextView
                 android:text="Others"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="#000000"
+                android:textColor="@color/text_primary"
                 android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -97,31 +93,6 @@
                 android:text="Hindi"
                 style="@style/RadioButtonStyle"/>
 
-            <RadioButton
-                android:text="Spanish"
-                style="@style/RadioButtonStyle"/>
-
-            <RadioButton
-                android:text="French"
-                style="@style/RadioButtonStyle"/>
-
-            <RadioButton
-                android:text="Arabic"
-                style="@style/RadioButtonStyle"/>
-
-            <RadioButton
-                android:text="Bengali"
-                style="@style/RadioButtonStyle"/>
-
-            <RadioButton
-                android:text="Russian"
-                style="@style/RadioButtonStyle"/>
-
-            <RadioButton
-                android:text="Indonesia"
-                style="@style/RadioButtonStyle"/>
-
         </RadioGroup>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

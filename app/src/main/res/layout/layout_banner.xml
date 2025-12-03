@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="180dp"
     app:cardCornerRadius="24dp"
-    app:cardElevation="0dp">
-
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/transparent">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:src="@drawable/banner_setting"
-
         android:scaleType="centerCrop" />
+
 </androidx.cardview.widget.CardView>

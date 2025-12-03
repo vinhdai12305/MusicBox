@@ -13,4 +13,7 @@
     <string name="quit">Thoát</string>
     <string name="new_music">Nhạc Mới</string>
     <string name="playlist_updates">Cập nhật Playlist</string>
+    <string name="choose_theme">Chọn Giao Diện</string>
+    <string name="theme_light">Giao diện Sáng</string>
+    <string name="theme_dark">Giao diện Tối</string>
 </resources>
