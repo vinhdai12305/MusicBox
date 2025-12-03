@@ -27,11 +27,20 @@
 
         <activity
             android:name=".SettingsActivity"
-            android:exported="true"> <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:exported="false" /> <activity
+            android:name=".OnboardingActivity"
+            android:exported="false" />
 
+        <activity android:name=".OnboardingActivity2" />
+        <activity android:name=".OnboardingActivity3" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
     </application>

@@ -18,88 +18,33 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SettingsActivity : AppCompatActivity() {
 
-    // Biến để điều khiển dòng chữ "Giao diện Tối/Sáng"
-    private lateinit var txtDarkModeLabel: TextView
+    // Biến dòng chữ "Giao diện Tối/Sáng"
+    private lateinit var lblDarkMode: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 1. KIỂM TRA THEME KHI MỞ APP
+        // 1. CẤU HÌNH DARK MODE (Trước khi hiện giao diện)
         val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val isDarkMode = sharedPref.getBoolean("DARK_MODE", false)
         if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
         setContentView(R.layout.activity_settings)
 
-        // 2. TÌM CÁI DÒNG CHỮ ĐỂ TÍ NỮA ĐỔI TÊN (ID là lblDarkMode)
-        txtDarkModeLabel = findViewById(R.id.lblDarkMode)
-        updateDarkModeText(isDarkMode)
+        // 2. KHỞI TẠO VIEW
+        lblDarkMode = findViewById(R.id.lblDarkMode)
+        updateDarkModeLabel(isDarkMode)
 
-        // 3. CÀI ĐẶT MENU VÀ CHUYỂN TRANG
+        // 3. CÀI ĐẶT CHỨC NĂNG
         setupBottomNavigation()
-        setupNavigation()
-
-        // 4. XỬ LÝ KHI BẤM VÀO MỤC DARK MODE (ID là tvDarkMode - Lớp phủ)
-        val btnDarkMode = findViewById<View>(R.id.tvDarkMode)
-        btnDarkMode.setOnClickListener {
-            showThemeDialog(isDarkMode)
-        }
+        setupMenuClicks(isDarkMode)
     }
 
-    // Hàm đổi chữ hiển thị
-    private fun updateDarkModeText(isDark: Boolean) {
-        if (isDark) {
-            txtDarkModeLabel.text = getString(R.string.theme_dark) // "Giao diện Tối"
-        } else {
-            txtDarkModeLabel.text = getString(R.string.theme_light) // "Giao diện Sáng"
-        }
-    }
-
-    // Hàm hiện Dialog chọn Theme
-    private fun showThemeDialog(isCurrentDark: Boolean) {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setContentView(R.layout.dialog_theme)
-
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
-        val rgTheme = dialog.findViewById<RadioGroup>(R.id.rgTheme)
-        val rbLight = dialog.findViewById<RadioButton>(R.id.rbLight)
-        val rbDark = dialog.findViewById<RadioButton>(R.id.rbDark)
-        val btnCancel = dialog.findViewById<View>(R.id.btnCancel)
-        val btnApply = dialog.findViewById<View>(R.id.btnApply)
-
-        // Tích sẵn vào ô đang chọn
-        if (isCurrentDark) rbDark.isChecked = true else rbLight.isChecked = true
-
-        btnCancel.setOnClickListener { dialog.dismiss() }
-
-        btnApply.setOnClickListener {
-            val isDarkSelected = (rgTheme.checkedRadioButtonId == R.id.rbDark)
-
-            // Lưu và Áp dụng
-            saveDarkModeState(isDarkSelected)
-            updateDarkModeText(isDarkSelected)
-
-            if (isDarkSelected) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
-
-    private fun saveDarkModeState(isDark: Boolean) {
-        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-        with(sharedPref.edit()) {
-            putBoolean("DARK_MODE", isDark)
-            apply()
-        }
-    }
-
+    // --- HÀM XỬ LÝ MENU DƯỚI ĐÁY ---
     private fun setupBottomNavigation() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.selectedItemId = R.id.nav_settings
@@ -111,16 +56,77 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupNavigation() {
+    // --- HÀM XỬ LÝ CÁC NÚT BẤM ---
+    private fun setupMenuClicks(currentDarkModeState: Boolean) {
+        // Chuyển trang Notification
         findViewById<View>(R.id.tvNotification).setOnClickListener {
             startActivity(Intent(this, NotificationActivity::class.java))
         }
+
+        // Chuyển trang Language
         findViewById<View>(R.id.tvLanguage).setOnClickListener {
             startActivity(Intent(this, LanguageActivity::class.java))
         }
+
+        // Mở Dialog Dark Mode
+        findViewById<View>(R.id.tvDarkMode).setOnClickListener {
+            showThemeDialog(getDarkModeState())
+        }
+
+        // Mở Dialog Quit
         findViewById<View>(R.id.tvQuit).setOnClickListener {
             showQuitDialog()
         }
+    }
+
+    // --- CÁC HÀM PHỤ TRỢ (Helper) ---
+
+    private fun updateDarkModeLabel(isDark: Boolean) {
+        if (isDark) lblDarkMode.text = getString(R.string.theme_dark)
+        else lblDarkMode.text = getString(R.string.theme_light)
+    }
+
+    private fun getDarkModeState(): Boolean {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        return sharedPref.getBoolean("DARK_MODE", false)
+    }
+
+    private fun saveDarkModeState(isDark: Boolean) {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putBoolean("DARK_MODE", isDark)
+            apply()
+        }
+    }
+
+    private fun showThemeDialog(isCurrentDark: Boolean) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_theme)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val rgTheme = dialog.findViewById<RadioGroup>(R.id.rgTheme)
+        val rbLight = dialog.findViewById<RadioButton>(R.id.rbLight)
+        val rbDark = dialog.findViewById<RadioButton>(R.id.rbDark)
+        val btnCancel = dialog.findViewById<View>(R.id.btnCancel)
+        val btnApply = dialog.findViewById<View>(R.id.btnApply)
+
+        if (isCurrentDark) rbDark.isChecked = true else rbLight.isChecked = true
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+
+        btnApply.setOnClickListener {
+            val isDarkSelected = (rgTheme.checkedRadioButtonId == R.id.rbDark)
+            saveDarkModeState(isDarkSelected)
+            updateDarkModeLabel(isDarkSelected)
+
+            if (isDarkSelected) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun showQuitDialog() {
