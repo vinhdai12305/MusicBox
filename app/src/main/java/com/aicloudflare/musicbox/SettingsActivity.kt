@@ -1,6 +1,7 @@
 package com.aicloudflare.musicbox
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -8,17 +9,43 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class SettingsActivity : AppCompatActivity() {
+
+    // Biến dòng chữ "Giao diện Tối/Sáng"
+    private lateinit var lblDarkMode: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 1. CẤU HÌNH DARK MODE (Trước khi hiện giao diện)
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPref.getBoolean("DARK_MODE", false)
+        if (isDarkMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
         setContentView(R.layout.activity_settings)
 
-        // ==========================================
-        // 1. XỬ LÝ THANH MENU DƯỚI ĐÁY
-        // ==========================================
+        // 2. KHỞI TẠO VIEW
+        lblDarkMode = findViewById(R.id.lblDarkMode)
+        updateDarkModeLabel(isDarkMode)
+
+        // 3. CÀI ĐẶT CHỨC NĂNG
+        setupBottomNavigation()
+        setupMenuClicks(isDarkMode)
+    }
+
+    // --- HÀM XỬ LÝ MENU DƯỚI ĐÁY ---
+    private fun setupBottomNavigation() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNavigation)
         bottomNav.selectedItemId = R.id.nav_settings
         bottomNav.setOnItemSelectedListener { item ->
@@ -27,62 +54,96 @@ class SettingsActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
 
-        // ==========================================
-        // 2. XỬ LÝ CHUYỂN TRANG NOTIFICATION
-        // ==========================================
-        val btnNotification = findViewById<View>(R.id.tvNotification)
-        btnNotification.setOnClickListener {
-            val intent = Intent(this, NotificationActivity::class.java)
-            startActivity(intent)
+    // --- HÀM XỬ LÝ CÁC NÚT BẤM ---
+    private fun setupMenuClicks(currentDarkModeState: Boolean) {
+        // Chuyển trang Notification
+        findViewById<View>(R.id.tvNotification).setOnClickListener {
+            startActivity(Intent(this, NotificationActivity::class.java))
         }
 
-        // ==========================================
-        // 3. XỬ LÝ CHUYỂN TRANG LANGUAGE
-        // ==========================================
-        val btnLanguage = findViewById<View>(R.id.tvLanguage)
-        btnLanguage.setOnClickListener {
-            val intent = Intent(this, LanguageActivity::class.java)
-            startActivity(intent)
+        // Chuyển trang Language
+        findViewById<View>(R.id.tvLanguage).setOnClickListener {
+            startActivity(Intent(this, LanguageActivity::class.java))
         }
 
-        // ==========================================
-        // 4. XỬ LÝ NÚT QUIT (HIỆN DIALOG) - MỚI THÊM
-        // ==========================================
-        val btnQuit = findViewById<View>(R.id.tvQuit)
-        btnQuit.setOnClickListener {
+        // Mở Dialog Dark Mode
+        findViewById<View>(R.id.tvDarkMode).setOnClickListener {
+            showThemeDialog(getDarkModeState())
+        }
+
+        // Mở Dialog Quit
+        findViewById<View>(R.id.tvQuit).setOnClickListener {
             showQuitDialog()
         }
     }
 
-    // Hàm hiển thị Dialog hỏi thoát
+    // --- CÁC HÀM PHỤ TRỢ (Helper) ---
+
+    private fun updateDarkModeLabel(isDark: Boolean) {
+        if (isDark) lblDarkMode.text = getString(R.string.theme_dark)
+        else lblDarkMode.text = getString(R.string.theme_light)
+    }
+
+    private fun getDarkModeState(): Boolean {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        return sharedPref.getBoolean("DARK_MODE", false)
+    }
+
+    private fun saveDarkModeState(isDark: Boolean) {
+        val sharedPref = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        with(sharedPref.edit()) {
+            putBoolean("DARK_MODE", isDark)
+            apply()
+        }
+    }
+
+    private fun showThemeDialog(isCurrentDark: Boolean) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_theme)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        val rgTheme = dialog.findViewById<RadioGroup>(R.id.rgTheme)
+        val rbLight = dialog.findViewById<RadioButton>(R.id.rbLight)
+        val rbDark = dialog.findViewById<RadioButton>(R.id.rbDark)
+        val btnCancel = dialog.findViewById<View>(R.id.btnCancel)
+        val btnApply = dialog.findViewById<View>(R.id.btnApply)
+
+        if (isCurrentDark) rbDark.isChecked = true else rbLight.isChecked = true
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
+
+        btnApply.setOnClickListener {
+            val isDarkSelected = (rgTheme.checkedRadioButtonId == R.id.rbDark)
+            saveDarkModeState(isDarkSelected)
+            updateDarkModeLabel(isDarkSelected)
+
+            if (isDarkSelected) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
     private fun showQuitDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_quit)
-
-        // Làm nền trong suốt để bo góc đẹp
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 
-        // Chỉnh chiều rộng dialog cho đẹp (chiếm toàn chiều ngang)
-        dialog.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-
-        // Xử lý nút bấm trong Dialog
         val btnCancel = dialog.findViewById<View>(R.id.btnCancel)
         val btnConfirm = dialog.findViewById<View>(R.id.btnConfirmQuit)
 
-        btnCancel.setOnClickListener {
-            dialog.dismiss() // Đóng dialog
-        }
-
+        btnCancel.setOnClickListener { dialog.dismiss() }
         btnConfirm.setOnClickListener {
             dialog.dismiss()
-            finishAffinity() // Thoát hẳn ứng dụng
+            finishAffinity()
         }
-
         dialog.show()
     }
 }
