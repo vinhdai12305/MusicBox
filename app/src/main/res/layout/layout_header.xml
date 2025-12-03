@@ -10,10 +10,15 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
 
-        android:src="@drawable/ic_musicbox_logo"
+        android:background="@drawable/ic_orange_circle_logo"
+        android:src="@drawable/ic_logo_music_note"
+
+        android:padding="10dp"
+        app:tint="#FFFFFF"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvHeaderTitle"
         android:layout_width="wrap_content"
@@ -31,10 +36,14 @@
         android:id="@+id/imgMenuMore"
         android:layout_width="40dp"
         android:layout_height="40dp"
+
         android:background="@drawable/ic_circle_stroke"
+        app:backgroundTint="@color/text_primary"
+
         android:src="@drawable/ic_more"
-        android:padding="9dp"
         app:tint="@color/text_primary"
+
+        android:padding="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvHeaderTitle"
         app:layout_constraintBottom_toBottomOf="@id/tvHeaderTitle"/>
