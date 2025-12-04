@@ -1,4 +1,4 @@
-package com.aicloudflare.musicbox;
+package com.aicloudflare.musicbox.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat; // Bổ sung import này
 
+import com.aicloudflare.musicbox.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

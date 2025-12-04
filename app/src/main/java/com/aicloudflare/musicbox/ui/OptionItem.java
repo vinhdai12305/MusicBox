@@ -1,4 +1,4 @@
-package com.aicloudflare.musicbox;
+package com.aicloudflare.musicbox.ui;
 
 public class OptionItem {
     private int iconId;

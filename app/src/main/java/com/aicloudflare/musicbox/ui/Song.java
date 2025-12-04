@@ -1,4 +1,4 @@
-package com.aicloudflare.musicbox;
+package com.aicloudflare.musicbox.ui;
 
 import java.io.Serializable;
 
